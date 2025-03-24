@@ -47,12 +47,12 @@
     "connection_timeout": 2,
     "retry_count": 3,
     "min_ips": {
-        "ipv4": 15,
-        "ipv6": 8
+        "ipv4": 90,
+        "ipv6": 45
     },
     "max_ips": {
-        "ipv4": 30,
-        "ipv6": 15
+        "ipv4": 180,
+        "ipv6": 90
     },
     "ping_count": 5,
     "output_file": "data/ips.json",
