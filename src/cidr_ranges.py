@@ -52,7 +52,7 @@ class CIDRRangeScanner:
             ips.add(f"[{ip}]")
         return ips
 
-    async def scan_random_ips(self, ipv4_count: int = 30, ipv6_count: int = 15) -> Dict[str, List[str]]:
+    async def scan_random_ips(self, ipv4_count: int = 100, ipv6_count: int = 50) -> Dict[str, List[str]]:
         with ThreadPoolExecutor() as executor:
             ipv4_task = asyncio.get_event_loop().run_in_executor(
                 executor, self._generate_random_ipv4, ipv4_count * 2
