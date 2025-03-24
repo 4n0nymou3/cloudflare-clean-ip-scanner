@@ -43,16 +43,16 @@
         "2a06:98c0::/29",
         "2c0f:f248::/32"
     ],
-    "test_ports": [443, 2053, 2083, 2087, 2096, 8443, 500, 1701, 2408, 4500, 8080],
+    "test_ports": [443, 2053, 2083, 2096, 8443],
     "connection_timeout": 2,
     "retry_count": 3,
     "min_ips": {
-        "ipv4": 20,
-        "ipv6": 10
+        "ipv4": 10,
+        "ipv6": 5
     },
     "max_ips": {
-        "ipv4": 50,
-        "ipv6": 25
+        "ipv4": 20,
+        "ipv6": 10
     },
     "ping_count": 5,
     "output_file": "data/ips.json",
