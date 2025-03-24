@@ -9,16 +9,9 @@ class CIDRRangeScanner:
         self.ipv4_networks = [ipaddress.IPv4Network(cidr) for cidr in ipv4_ranges]
         self.ipv6_networks = [ipaddress.IPv6Network(cidr) for cidr in ipv6_ranges]
         self.high_priority_ipv4 = [
-            ipaddress.IPv4Network("104.16.0.0/16"),
-            ipaddress.IPv4Network("104.17.0.0/16"),
-            ipaddress.IPv4Network("104.18.0.0/16"),
-            ipaddress.IPv4Network("104.19.0.0/16"),
-            ipaddress.IPv4Network("162.159.0.0/16"),
-            ipaddress.IPv4Network("172.64.0.0/16"),
-            ipaddress.IPv4Network("172.65.0.0/16"),
-            ipaddress.IPv4Network("172.66.0.0/16"),
-            ipaddress.IPv4Network("172.67.0.0/16"),
-            ipaddress.IPv4Network("188.114.96.0/20")
+            ipaddress.IPv4Network("188.114.96.0/20"),
+            ipaddress.IPv4Network("162.158.0.0/15"),
+            ipaddress.IPv4Network("162.159.0.0/16")
         ]
         self.high_priority_ipv6 = [
             ipaddress.IPv6Network("2606:4700::/32"),
@@ -27,7 +20,7 @@ class CIDRRangeScanner:
 
     def _generate_random_ipv4(self, count: int) -> Set[str]:
         ips = set()
-        high_priority_count = int(count * 0.7)
+        high_priority_count = int(count * 0.9)
         for _ in range(high_priority_count):
             network = random.choice(self.high_priority_ipv4)
             host = random.randint(0, network.num_addresses - 1)
@@ -43,7 +36,7 @@ class CIDRRangeScanner:
 
     def _generate_random_ipv6(self, count: int) -> Set[str]:
         ips = set()
-        high_priority_count = int(count * 0.7)
+        high_priority_count = int(count * 0.9)
         for _ in range(high_priority_count):
             network = random.choice(self.high_priority_ipv6)
             host_part = [random.randint(0, 65535) for _ in range(4)]
