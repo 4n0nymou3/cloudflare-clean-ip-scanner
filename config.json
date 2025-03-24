@@ -1,0 +1,62 @@
+{
+    "target_domains": [
+        "engage.cloudflareclient.com",
+        "warp.daemon.cloudflare.com",
+        "api.cloudflareclient.com",
+        "one.one.one.one",
+        "cloudflare.com",
+        "www.cloudflare.com",
+        "warp.cloudflare.com",
+        "warp-relay.cloudflare.com",
+        "cdn.cloudflare.net",
+        "speed.cloudflare.com",
+        "dash.cloudflare.com",
+        "workers.cloudflare.com",
+        "pages.cloudflare.com",
+        "blog.cloudflare.com",
+        "developers.cloudflare.com",
+        "community.cloudflare.com"
+    ],
+    "cloudflare_ipv4_ranges": [
+        "103.21.244.0/22",
+        "103.22.200.0/22",
+        "103.31.4.0/22",
+        "104.16.0.0/13",
+        "104.24.0.0/14",
+        "108.162.192.0/18",
+        "131.0.72.0/22",
+        "141.101.64.0/18",
+        "162.158.0.0/15",
+        "172.64.0.0/13",
+        "173.245.48.0/20",
+        "188.114.96.0/20",
+        "190.93.240.0/20",
+        "197.234.240.0/22",
+        "198.41.128.0/17"
+    ],
+    "cloudflare_ipv6_ranges": [
+        "2400:cb00::/32",
+        "2405:8100::/32",
+        "2405:b500::/32",
+        "2606:4700::/32",
+        "2803:f800::/32",
+        "2a06:98c0::/29",
+        "2c0f:f248::/32"
+    ],
+    "test_ports": [443, 2053, 2083, 2087, 2096, 8443, 500, 1701, 2408, 4500, 8080],
+    "connection_timeout": 2,
+    "retry_count": 3,
+    "min_ips": {
+        "ipv4": 20,
+        "ipv6": 10
+    },
+    "max_ips": {
+        "ipv4": 50,
+        "ipv6": 25
+    },
+    "ping_count": 5,
+    "output_file": "data/ips.json",
+    "scan_results_file": "data/last_scan_results.json",
+    "default_ipv4": ["162.159.192.1:2408", "162.159.193.1:500"],
+    "default_ipv6": ["[2606:4700:d0::a29f:c001]:2408", "[2606:4700:d1::a29f:c001]:500"]
+}
