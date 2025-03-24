@@ -21,10 +21,7 @@ class CIDRRangeScanner:
             ipaddress.IPv4Network("188.114.96.0/20")
         ]
         self.high_priority_ipv6 = [
-            ipaddress.IPv6Network("2606:4700:d0::/44"),
-            ipaddress.IPv6Network("2606:4700:d1::/44"),
-            ipaddress.IPv6Network("2606:4700:d2::/44"),
-            ipaddress.IPv6Network("2606:4700:d3::/44"),
+            ipaddress.IPv6Network("2606:4700::/32"),
             ipaddress.IPv6Network("2400:cb00::/32")
         ]
 
