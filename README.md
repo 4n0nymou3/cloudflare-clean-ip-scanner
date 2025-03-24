@@ -26,6 +26,7 @@ This repository is configured to run the IP scanner automatically every 15 minut
 ## Configuration
 
 Edit the `config.json` file to customize:
+
 - Target domains for scanning
 - Cloudflare CIDR ranges to check
 - Ports to test
