@@ -1,13 +1,13 @@
 {
-    "timestamp": 1742860673.2085812,
-    "duration_seconds": 1406.1997876167297,
+    "timestamp": 1742867339.3252685,
+    "duration_seconds": 1776.046975851059,
     "domains_scanned": 16,
     "ips_discovered": {
         "ipv4": 90,
         "ipv6": 45
     },
     "working_ips_found": {
-        "ipv4": 50,
+        "ipv4": 37,
         "ipv6": 2
     }
 }
