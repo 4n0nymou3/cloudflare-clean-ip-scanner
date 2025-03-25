@@ -47,12 +47,12 @@
     "connection_timeout": 2,
     "retry_count": 3,
     "min_ips": {
-        "ipv4": 90,
-        "ipv6": 45
+        "ipv4": 200,
+        "ipv6": 100
     },
     "max_ips": {
-        "ipv4": 180,
-        "ipv6": 90
+        "ipv4": 200,
+        "ipv6": 100
     },
     "ping_count": 5,
     "output_file": "data/ips.json",
@@ -60,6 +60,6 @@
     "default_ipv4": ["162.159.192.1:2408", "162.159.193.1:500"],
     "default_ipv6": ["[2606:4700:d0::a29f:c001]:2408", "[2606:4700:d1::a29f:c001]:500"],
     "download_test_url": "https://speed.cloudflare.com/__down?bytes=10000000",
-    "min_download_speed": 1.0,
-    "region_filter": ["HKG", "KHH", "NRT", "LAX", "SEA", "SJC", "FRA", "MAD"]
+    "min_download_speed": 0.1,
+    "region_filter": []
 }
