@@ -25,7 +25,8 @@ class CloudflareIPScanner:
             timeout=self.config["connection_timeout"],
             retry_count=self.config["retry_count"],
             download_test_url=self.config["download_test_url"],
-            min_download_speed=self.config["min_download_speed"]
+            min_download_speed=self.config["min_download_speed"],
+            region_filter=self.config["region_filter"]
         )
         self.cidr_scanner = CIDRRangeScanner(
             ipv4_ranges=self.config["cloudflare_ipv4_ranges"],
