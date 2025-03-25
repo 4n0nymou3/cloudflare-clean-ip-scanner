@@ -23,7 +23,9 @@ class CloudflareIPScanner:
         self.network_tester = NetworkTester(
             ports=self.config["test_ports"],
             timeout=self.config["connection_timeout"],
-            retry_count=self.config["retry_count"]
+            retry_count=self.config["retry_count"],
+            download_test_url=self.config["download_test_url"],
+            min_download_speed=self.config["min_download_speed"]
         )
         self.cidr_scanner = CIDRRangeScanner(
             ipv4_ranges=self.config["cloudflare_ipv4_ranges"],
