@@ -7,14 +7,16 @@ import random
 from concurrent.futures import ThreadPoolExecutor
 from .utils import format_ip
 import requests
+from .region_filter import RegionFilter
 
 class NetworkTester:
-    def __init__(self, ports: List[int], timeout: int = 2, retry_count: int = 3, download_test_url: str = "", min_download_speed: float = 1.0):
+    def __init__(self, ports: List[int], timeout: int = 2, retry_count: int = 3, download_test_url: str = "", min_download_speed: float = 1.0, region_filter: list = []):
         self.ports = ports
         self.timeout = timeout
         self.retry_count = retry_count
         self.download_test_url = download_test_url
         self.min_download_speed = min_download_speed
+        self.region_filter = RegionFilter(region_filter)
 
     def _test_connection(self, ip: str, port: int) -> Tuple[bool, float]:
         start_time = time.time()
@@ -60,7 +62,7 @@ class NetworkTester:
                 best_port = port
         if best_port is not None:
             speed = self._test_download_speed(ip)
-            if speed >= self.min_download_speed:
+            if speed >= self.min_download_speed and self.region_filter.is_in_region(ip):
                 return ip, best_port, best_latency, speed
         return ip, None, 0.0, 0.0
 
