@@ -1,13 +1,14 @@
 import asyncio
 import time
 import socket
+import requests
 from typing import Dict, List, Tuple
 from concurrent.futures import ThreadPoolExecutor
 from .utils import format_ip
 from .region_filter import RegionFilter
 
 class NetworkTester:
-    def __init__(self, ports: List[int], timeout: int = 1, retry_count: int = 2, download_test_url: str = "", min_download_speed: float = 0.0, region_filter: list = []):
+    def __init__(self, ports: List[int], timeout: int = 2, retry_count: int = 3, download_test_url: str = "", min_download_speed: float = 0.5, region_filter: list = []):
         self.ports = ports
         self.timeout = timeout
         self.retry_count = retry_count
@@ -33,7 +34,7 @@ class NetworkTester:
                     return True, latency
             except (socket.timeout, socket.error):
                 pass
-            time.sleep(0.05)
+            time.sleep(0.1)
         return False, 0.0
 
     def _test_download_speed(self, ip: str) -> float:
@@ -57,8 +58,6 @@ class NetworkTester:
             if success and latency < best_latency:
                 best_latency = latency
                 best_port = port
-            if best_port is not None:
-                break
         if best_port is not None:
             speed = self._test_download_speed(ip)
             if speed >= self.min_download_speed and (not self.region_filter or self.region_filter.is_in_region(ip)):
@@ -69,7 +68,7 @@ class NetworkTester:
         working_ips = {"ipv4": [], "ipv6": []}
         tasks = []
         for ip_type, ip_list in ips.items():
-            for ip in ip_list[:50]:
+            for ip in ip_list:
                 tasks.append(self._test_ip(ip))
         results = await asyncio.gather(*tasks)
         for ip, port, latency in results:
