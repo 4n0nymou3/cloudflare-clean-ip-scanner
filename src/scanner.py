@@ -2,15 +2,12 @@ import asyncio
 import json
 import os
 import time
-import random
-from concurrent.futures import ThreadPoolExecutor
-from typing import Dict, List, Set, Tuple, Any
-
+from typing import Dict, List
 from .domain_resolver import DomainResolver
 from .ip_validator import IPValidator
 from .network_tester import NetworkTester
 from .cidr_ranges import CIDRRangeScanner
-from .utils import load_config, save_json, format_ip
+from .utils import load_config, save_json
 
 class CloudflareIPScanner:
     def __init__(self, config_path: str = "config.json"):
@@ -58,10 +55,10 @@ class CloudflareIPScanner:
             "ipv4": list(ipv4_set),
             "ipv6": list(ipv6_set)
         })
-        if not working_ips["ipv4"]:
-            working_ips["ipv4"] = self.default_ipv4
-        if not working_ips["ipv6"]:
-            working_ips["ipv6"] = self.default_ipv6
+        if len(working_ips["ipv4"]) < self.min_ipv4:
+            working_ips["ipv4"].extend(self.default_ipv4[:self.min_ipv4 - len(working_ips["ipv4"])])
+        if len(working_ips["ipv6"]) < self.min_ipv6:
+            working_ips["ipv6"].extend(self.default_ipv6[:self.min_ipv6 - len(working_ips["ipv6"])])
         working_ips["ipv4"] = working_ips["ipv4"][:self.max_ipv4]
         working_ips["ipv6"] = working_ips["ipv6"][:self.max_ipv6]
         scan_time = time.time() - start_time
