@@ -43,23 +43,20 @@
         "2a06:98c0::/29",
         "2c0f:f248::/32"
     ],
-    "test_ports": [443, 2053, 2083, 2096, 8443],
+    "test_ports": [443, 2053, 2083, 2087, 2096, 8443, 500, 1701, 2408, 4500, 8080],
     "connection_timeout": 2,
     "retry_count": 3,
     "min_ips": {
         "ipv4": 20,
-        "ipv6": 20
+        "ipv6": 10
     },
     "max_ips": {
-        "ipv4": 30,
-        "ipv6": 30
+        "ipv4": 50,
+        "ipv6": 25
     },
     "ping_count": 5,
     "output_file": "data/ips.json",
     "scan_results_file": "data/last_scan_results.json",
     "default_ipv4": ["162.159.192.1:2408", "162.159.193.1:500"],
-    "default_ipv6": ["[2606:4700:d0::a29f:c001]:2408", "[2606:4700:d1::a29f:c001]:500"],
-    "download_test_url": "https://speed.cloudflare.com/__down?bytes=10000000",
-    "min_download_speed": 0.5,
-    "region_filter": []
+    "default_ipv6": ["[2606:4700:d0::a29f:c001]:2408", "[2606:4700:d1::a29f:c001]:500"]
 }
