@@ -25,11 +25,15 @@ jobs:
       - name: Run scanner
         run: python scripts/run_scan.py
 
+      - name: Run speed test
+        run: python scripts/run_speed_test.py
+
       - name: Commit and push changes
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
           git add data/ips.json
           git add data/last_scan_results.json
-          git commit -m "Update ips.json with latest scan results"
+          git add data/fast_ips.json
+          git commit -m "Update ips.json and fast_ips.json with latest scan and speed test results"
           git push
