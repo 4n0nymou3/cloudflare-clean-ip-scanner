@@ -12,16 +12,19 @@ class SpeedTester:
     def test_download_speed(self, ip: str) -> float:
         try:
             start_time = time.time()
-            response = requests.get(self.test_url, timeout=self.timeout, proxies={"http": ip, "https": ip})
-            if response.status_code == 200:
-                end_time = time.time()
-                download_time = end_time - start_time
-                speed_bps = len(response.content) * 8 / download_time
-                speed_mbps = speed_bps / 1_000_000
-                return speed_mbps
-            else:
-                return 0.0
-        except:
+            response = requests.get(self.test_url, timeout=self.timeout)
+            response.raise_for_status()
+            end_time = time.time()
+            download_time = end_time - start_time
+            speed_bps = len(response.content) * 8 / download_time
+            speed_mbps = speed_bps / 1_000_000
+            print(f"IP: {ip}, Speed: {speed_mbps:.2f} Mbps")
+            return speed_mbps
+        except requests.exceptions.Timeout:
+            print(f"IP: {ip}, Timeout occurred")
+            return 0.0
+        except requests.exceptions.RequestException as e:
+            print(f"IP: {ip}, Error: {e}")
             return 0.0
 
     def filter_fast_ips(self, ips: Dict[str, List[str]]) -> Dict[str, List[str]]:
