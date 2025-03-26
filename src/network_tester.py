@@ -1,16 +1,13 @@
 import asyncio
 import time
 import socket
-import subprocess
-from typing import Dict, List, Tuple, Optional
-import random
+from typing import Dict, List, Tuple
 from concurrent.futures import ThreadPoolExecutor
 from .utils import format_ip
-import requests
 from .region_filter import RegionFilter
 
 class NetworkTester:
-    def __init__(self, ports: List[int], timeout: int = 2, retry_count: int = 3, download_test_url: str = "", min_download_speed: float = 1.0, region_filter: list = []):
+    def __init__(self, ports: List[int], timeout: int = 1, retry_count: int = 2, download_test_url: str = "", min_download_speed: float = 0.0, region_filter: list = []):
         self.ports = ports
         self.timeout = timeout
         self.retry_count = retry_count
@@ -36,7 +33,7 @@ class NetworkTester:
                     return True, latency
             except (socket.timeout, socket.error):
                 pass
-            time.sleep(0.1)
+            time.sleep(0.05)
         return False, 0.0
 
     def _test_download_speed(self, ip: str) -> float:
@@ -52,7 +49,7 @@ class NetworkTester:
         except Exception:
             return 0.0
 
-    async def _test_ip(self, ip: str) -> Tuple[str, float, float]:
+    async def _test_ip(self, ip: str) -> Tuple[str, int, float]:
         best_port = None
         best_latency = float('inf')
         for port in self.ports:
@@ -60,20 +57,22 @@ class NetworkTester:
             if success and latency < best_latency:
                 best_latency = latency
                 best_port = port
+            if best_port is not None:
+                break
         if best_port is not None:
             speed = self._test_download_speed(ip)
-            if speed >= self.min_download_speed and self.region_filter.is_in_region(ip):
-                return ip, best_port, best_latency, speed
-        return ip, None, 0.0, 0.0
+            if speed >= self.min_download_speed and (not self.region_filter or self.region_filter.is_in_region(ip)):
+                return ip, best_port, best_latency
+        return ip, None, 0.0
 
     async def test_ips(self, ips: Dict[str, List[str]]) -> Dict[str, List[str]]:
         working_ips = {"ipv4": [], "ipv6": []}
         tasks = []
         for ip_type, ip_list in ips.items():
-            for ip in ip_list:
+            for ip in ip_list[:50]:
                 tasks.append(self._test_ip(ip))
         results = await asyncio.gather(*tasks)
-        for ip, port, latency, speed in results:
+        for ip, port, latency in results:
             if port is not None:
                 formatted_ip = format_ip(ip, port)
                 if ':' in ip:
