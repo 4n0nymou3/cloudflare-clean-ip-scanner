@@ -25,14 +25,11 @@ jobs:
       - name: Run scanner
         run: python scripts/run_scan.py
 
-      - name: Pull latest changes
-        run: git pull
-
       - name: Commit and push changes
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
           git add data/ips.json
           git add data/last_scan_results.json
-          git commit -m "Update ips.json with latest scan results" || echo "No changes to commit"
+          git commit -m "Update ips.json with latest scan results"
           git push
