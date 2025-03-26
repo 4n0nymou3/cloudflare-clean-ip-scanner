@@ -60,7 +60,7 @@
     "default_ipv4": ["162.159.192.1:2408", "162.159.193.1:500"],
     "default_ipv6": ["[2606:4700:d0::a29f:c001]:2408", "[2606:4700:d1::a29f:c001]:500"],
     "speed_test_url": "https://speed.cloudflare.com/__down?bytes=100000",
-    "min_speed_mbps": 0.1,
-    "speed_test_timeout": 30,
+    "min_speed_mbps": 1.0,
+    "speed_test_timeout": 20,
     "fast_ips_file": "data/fast_ips.json"
 }
