@@ -44,10 +44,10 @@ class CloudflareIPScanner:
         resolved_ips = await self.domain_resolver.resolve_all()
         ipv4_set = {ip for ip in resolved_ips["ipv4"] if self.ip_validator.is_cloudflare_ipv4(ip)}
         ipv6_set = {ip for ip in resolved_ips["ipv6"] if self.ip_validator.is_cloudflare_ipv6(ip)}
-        if len(ipv4_set) < self.min_ipv4 or len(ipv6_set) < self.min_ipv6:
+        if len(ipv4_set) < 100:
             cidr_ips = await self.cidr_scanner.scan_random_ips(
-                ipv4_count=max(0, self.min_ipv4 - len(ipv4_set)),
-                ipv6_count=max(0, self.min_ipv6 - len(ipv6_set))
+                ipv4_count=100 - len(ipv4_set),
+                ipv6_count=100 - len(ipv6_set)
             )
             ipv4_set.update(cidr_ips["ipv4"])
             ipv6_set.update(cidr_ips["ipv6"])
